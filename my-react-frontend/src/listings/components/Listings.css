@@ -1,0 +1,48 @@
+.listings-slider-container {
+  max-width: 1200px; /* Adjust as needed */
+  margin: auto;
+}
+
+.listing-card {
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 15px;
+  overflow: hidden; /* To ensure the image does not overflow the card */
+  cursor: pointer;
+}
+
+.listing-image-container {
+  max-height: 200px; /* Adjust as needed */
+  overflow: hidden;
+}
+
+.listing-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.listing-image:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.listing-details {
+  padding: 15px;
+}
+
+.listing-title {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.listing-price {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.listing-type {
+  font-size: 0.9rem;
+  color: #888;
+}

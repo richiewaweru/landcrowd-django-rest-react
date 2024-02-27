@@ -1,0 +1,4 @@
+.map-container img, .image-slide img {
+    max-height: 500px; /* Example to make images and map larger */
+    object-fit: cover; /* Adjust as needed to maintain aspect ratio */
+}

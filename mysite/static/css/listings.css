@@ -1,0 +1,17 @@
+.card {
+    border-radius: 15px;
+    margin: 0%;
+}
+.text-box {
+    border: 1px solid #ccc;
+    padding: 0px;
+    margin-bottom: 0px;
+    border-radius: 15px;
+    
+}
+
+.col {
+    padding: 0px;;
+    margin: 0px;
+}
+

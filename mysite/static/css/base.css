@@ -1,0 +1,15 @@
+/* static/css/base.css */
+h1{
+    color:black;
+    }
+
+/* Override or add styles to the Bootstrap navbar */
+.navbar{
+    background-color: #007BFF;
+}
+
+
+.navright{
+    position: absolute;
+    right: 0;
+}
