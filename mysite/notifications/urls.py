@@ -1,7 +1,11 @@
-from django.urls import path
+from django.urls import path,include
 from .views import NotificationListView
+from rest_framework import routers
 
-
+router = routers.DefaultRouter()
+router.register('notifications', NotificationListView, basename='notification')
 urlpatterns = [
-     path('api/notifications/', NotificationListView.as_view(), name='notification-list'),
+    path('api/', include(router.urls)),
 ]
+
+

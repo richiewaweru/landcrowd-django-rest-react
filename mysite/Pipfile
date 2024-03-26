@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 django-allauth = "*"
+coreapi = "*"
+pyyaml = "*"
 
 [dev-packages]
 

@@ -5,7 +5,7 @@ app_name = 'listings'
 from django.urls import path
 from .views import ( LandListingCreateAPIView,
     LandListingDetailAPIView,
-    LandListingImagesListAPIView, LandListingImagesDetailAPIView,LandListingMapsListAPIView,LandListingMapsDetailAPIView,ParcelAPIView,ParcelListAPIView,UserLandListingsView,LandListingsFilteredView
+    LandListingImagesListAPIView, LandListingImagesDetailAPIView,LandListingMapsListAPIView,LandListingMapsDetailAPIView,ParcelAPIView,ParcelListAPIView,UserLandListingsView,LandListingsFilteredView,SellerProfileCreateList
 )
 
 urlpatterns = [
@@ -22,6 +22,8 @@ urlpatterns = [
     path('api/landlistings/<int:land_listing_id>/maps/',LandListingMapsListAPIView.as_view(), name='landlisting-map'),
     path('api/user/landlistings/', UserLandListingsView.as_view(), name='user-landlistings'),
     path('api/listings/', LandListingsFilteredView.as_view(), name='user-landlistings'),
+    path('api/seller-profiles/', SellerProfileCreateList.as_view(), name='seller_profile_list_create'),
+
 ]
 
 

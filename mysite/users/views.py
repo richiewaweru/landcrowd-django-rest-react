@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer,UserInfoSerializer
 
 User = get_user_model()
 
@@ -45,3 +45,13 @@ class LogoutAPIView(APIView):
         # Deleting the user's token to log them out
         request.user.auth_token.delete()
         return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
+    
+
+class UserInfoView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, *args, **kwargs):
+        serializer = UserInfoSerializer(request.user)
+        return Response(serializer.data)
+    
+
+

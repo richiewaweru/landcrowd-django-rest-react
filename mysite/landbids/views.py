@@ -1,14 +1,15 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
-from .models import Bid
+from .models import Bid,BuyerProfile
 from listings.models import LandListing ,Parcel
-from .serializers import BidSerializer
+from .serializers import BidSerializer,BuyerSerializer
 from django.shortcuts import get_object_or_404
 from .permissions import IsOwnerOrReadOnly
 from django.db import transaction
 from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import PermissionDenied
 from notifications.models import Notification
+from django.contrib.auth import get_user_model
 
 class BidCreateView(generics.CreateAPIView):
     serializer_class = BidSerializer
@@ -29,6 +30,7 @@ class BidCreateView(generics.CreateAPIView):
             
             bid=serializer.save(bidder=self.request.user, listing=listing, parcel=parcel)
             Notification.objects.create(
+            sender=self.request.user,
             recipient=listing.seller,
             message=f"New bid on your parcel: {parcel.parcel_label} by {self.request.user.username}",
             notification_type='bid', 
@@ -78,3 +80,15 @@ class BidDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         bid=instance
     )
         instance.delete()
+
+
+User = get_user_model()
+
+class BuyerProfileCreateList(generics.ListCreateAPIView):
+    queryset = BuyerProfile.objects.all()
+    serializer_class = BuyerSerializer
+    permission_classes = [permissions.IsAuthenticated]  
+
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

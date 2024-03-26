@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions
-from .models import LandListing, LandListingImages,LandListingMaps,Parcel
-from .serializers import LandListingSerializer, LandListingImagesSerializer,LandListingMapsSerializer,ParcelSerializer
+from .models import LandListing, LandListingImages,LandListingMaps,Parcel,SellerProfile
+from .serializers import LandListingSerializer, LandListingImagesSerializer,LandListingMapsSerializer,ParcelSerializer,SellerSerializer
 from rest_framework.generics import RetrieveUpdateDestroyAPIView,ListCreateAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .permissions import IsOwnerOrReadOnly 
@@ -9,6 +9,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import PermissionDenied
 from notifications.models import Notification
 from landbids.models import Bid
+from django.contrib.auth import get_user_model
 
 
 class LandListingCreateAPIView(ListCreateAPIView):
@@ -17,7 +18,13 @@ class LandListingCreateAPIView(ListCreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
-        serializer.save(seller=self.request.user)
+        listing=serializer.save(seller=self.request.user)
+        Notification.objects.create(
+                    sender=self.request.user,
+                    recipient=self.request.user,
+                    message=f"You listed land parcel {listing.location} for sale.",
+                    land_listing=listing,
+                )
 
 
 class LandListingDetailAPIView(RetrieveUpdateDestroyAPIView):
@@ -182,7 +189,16 @@ class ParcelListAPIView(generics.ListCreateAPIView):
         land_listing = get_object_or_404(LandListing, id=land_listing_id)
         if land_listing.seller != self.request.user:      
             raise PermissionDenied("You do not have permission to add images to this listing.")
-        serializer.save(land_listing=land_listing, seller=self.request.user)
+        
+        parcel=serializer.save(land_listing=land_listing, seller=self.request.user)
+        Notification.objects.create(
+                    sender = self.request.user,
+                    recipient=self.request.user,
+                    message=f"You added a new parcel {parcel.parcel_label} to your listing {land_listing.location}.",
+                    notification_type='parcel_deleted',
+                    parcel=parcel,
+                    land_listing=land_listing,
+                )
 
 
 class ParcelAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -196,6 +212,7 @@ class ParcelAPIView(generics.RetrieveUpdateDestroyAPIView):
             # If there are bids, WE create a notification for each bid
             for bid in bids:
                 Notification.objects.create(
+                    sender=self.request.user,
                     recipient=bid.bidder,
                     message=f"The parcel {instance.parcel_label} you bid on has been deleted.",
                     notification_type='parcel_deleted',
@@ -203,7 +220,17 @@ class ParcelAPIView(generics.RetrieveUpdateDestroyAPIView):
                 )
         else:
             # If there are no bids we continue with normal deletion
-        
             instance.delete()
 
-   
+User = get_user_model()
+
+class SellerProfileCreateList(generics.ListCreateAPIView):
+    queryset = SellerProfile.objects.all()
+    serializer_class = SellerSerializer
+    permission_classes = [permissions.IsAuthenticated]  
+
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    

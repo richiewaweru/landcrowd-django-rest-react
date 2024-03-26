@@ -11,7 +11,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password']  # Include 'password' in the fields
+        fields = ['id', 'username', 'email', 'password', 'user_type']  
         extra_kwargs = {
             'username': {
                 'validators': [UniqueValidator(queryset=User.objects.all())],
@@ -22,7 +22,12 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'email': {
                 'required': True,
                 'allow_blank': False
-            }
+            },
+            'user_type':{
+                'required':True,
+                'allow_blank':False
+            },
+
         }
 
     def create(self, validated_data):
@@ -30,7 +35,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
-            password=validated_data['password']
+            password=validated_data['password'],
+            user_type=validated_data['user_type'],
         )
         return user
 
@@ -43,3 +49,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    is_profile_complete = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'user_type', 'is_profile_complete']
+
+    def get_is_profile_complete(self, obj):
+        return obj.is_profile_complete()
+
