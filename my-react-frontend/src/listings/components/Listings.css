@@ -1,48 +1,29 @@
-.listings-slider-container {
-  max-width: 1200px; /* Adjust as needed */
-  margin: auto;
+/* Listings container styles */
+.listings-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centers the cards horizontally */
+  gap: 20px; /* Adjust based on desired spacing between cards */
+  padding: 20px; /* Adds some padding around the container */
 }
 
+/* Individual listing card styles */
 .listing-card {
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 15px;
-  overflow: hidden; /* To ensure the image does not overflow the card */
-  cursor: pointer;
+  width: 100%; /* Ensures the card fills its parent up to max-width */
+  max-width: 400px; /* Maximum width of each card. Adjust as needed. */
+  margin: 0 auto; /* Centers the card in its flex container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow for depth */
+  border-radius: 10px; /* Optional: Rounds the corners of the card */
+  overflow: hidden; /* Ensures content fits within the border radius */
+  cursor: pointer; /* Changes cursor to pointer on hover */
 }
 
-.listing-image-container {
-  max-height: 200px; /* Adjust as needed */
-  overflow: hidden;
-}
-
-.listing-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.3s ease;
-}
-
-.listing-image:hover {
-  transform: scale(1.05); /* Slight zoom effect on hover */
+.listing-image-container img {
+  width: 100%; /* Makes image fill the container */
+  height: auto; /* Keeps image aspect ratio intact */
+  display: block; /* Removes bottom space/margin under the image */
 }
 
 .listing-details {
-  padding: 15px;
-}
-
-.listing-title {
-  font-size: 1.25rem;
-  margin-bottom: 10px;
-}
-
-.listing-price {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 5px;
-}
-
-.listing-type {
-  font-size: 0.9rem;
-  color: #888;
+  padding: 15px; /* Adds padding inside the card for the text */
 }

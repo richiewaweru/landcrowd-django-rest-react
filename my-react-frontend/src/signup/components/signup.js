@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
 const Signup = () => {
   const [userData, setUserData] = useState({
     username: '',
     email: '',
     password: '',
+    user_type: '', 
   });
 
   const navigate = useNavigate();
@@ -41,6 +41,15 @@ const Signup = () => {
             </div>
             <div className="mb-3">
               <input type="password" name="password" className="form-control" placeholder="Password" value={userData.password} onChange={handleChange} required />
+            </div>
+            <div className="mb-3">
+              <select name="user_type" className="form-select" value={userData.user_type} onChange={handleChange} required>
+                <option value="">Select Role</option>
+                <option value="buyer">Buyer</option>
+                <option value="seller">Seller</option>
+                <option value="lawyer">Lawyer</option>
+                <option value="surveyor">Surveyor</option>
+              </select>
             </div>
             <div className="d-grid gap-2">
               <button type="submit" className="btn btn-primary">Sign Up</button>

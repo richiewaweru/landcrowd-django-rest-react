@@ -10,6 +10,7 @@ const LandListingForm = () => {
     telephone_number: '',
     installment_options: false,
     listing_type: 'for sale',
+    description:'',
   });
 
   const handleChange = (e) => {
@@ -112,6 +113,20 @@ const LandListingForm = () => {
                 <option value="for lease">For lease</option>
               </select>
             </div>
+
+            <div className="mb-3">
+              <input
+                type="text"
+                className="form-control"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Land Description"
+                required
+              />
+            </div>
+
+
             <button type="submit" className="btn btn-primary">Create Listing</button>
           </form>
         </div>

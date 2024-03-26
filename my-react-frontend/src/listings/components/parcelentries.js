@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Parcels = () => {
   const { landListingId } = useParams();
   const [landMap, setLandMap] = useState(null);
   const [parcels, setParcels] = useState([]);
   const [selectedParcels, setSelectedParcels] = useState([]);
+  const [images, setImages] = useState([]); // Added state for images
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const config = {
@@ -18,26 +21,22 @@ const Parcels = () => {
   };
 
   useEffect(() => {
-    const fetchMap = async () => {
+    const fetchData = async () => {
       try {
         const mapsResponse = await axios.get(`http://localhost:8000/api/landlistings/${landListingId}/maps/`, config);
         setLandMap(mapsResponse.data[0]?.land_map);
+
+        const parcelsResponse = await axios.get(`http://127.0.0.1:8000/api/parcel/${landListingId}/`, config);
+        setParcels(parcelsResponse.data);
+
+        const imagesResponse = await axios.get(`http://localhost:8000/api/landlistings/${landListingId}/images/`, config);
+        setImages(imagesResponse.data); // Fetching and setting images
       } catch (error) {
-        console.error('Error fetching map:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    const getParcels = async () => {
-      try {
-        const res = await axios.get(`http://127.0.0.1:8000/api/parcel/${landListingId}/`, config);
-        setParcels(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchMap();
-    getParcels();
+    fetchData();
   }, [landListingId, token]);
 
   const toggleParcelSelection = (parcelId) => {
@@ -80,6 +79,14 @@ const Parcels = () => {
   };
   
 
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <div className="container mt-4">
       <div className="row">
@@ -87,8 +94,16 @@ const Parcels = () => {
           {landMap && (
             <img src={landMap} alt="Land Map" className="img-fluid" />
           )}
+          <Slider {...sliderSettings}>
+            {images.map((image, index) => (
+              <div key={index}>
+                <img src={image.land_images} alt={`Land ${index}`} className="img-fluid" style={{height:'500px'}}/>
+              </div>
+            ))}
+          </Slider>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-6">
+          {/* Parcels listing and bid submission remains the same */}
           {parcels.map((parcel) => (
             <div key={parcel.id} className="card mb-3" onClick={() => toggleParcelSelection(parcel.id)} style={{ cursor: 'pointer', margin: '10px', padding: '10px', border: selectedParcels.includes(parcel.id) ? '2px solid #007bff' : '1px solid #ddd' }}>
               <div className="card-body">
@@ -100,6 +115,7 @@ const Parcels = () => {
             </div>
           ))}
           <button className="btn btn-primary" onClick={handleBidSubmission}>Submit Bids for Selected Parcels</button>
+
         </div>
       </div>
     </div>

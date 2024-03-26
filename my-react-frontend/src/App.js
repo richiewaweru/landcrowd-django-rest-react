@@ -21,6 +21,12 @@ import UserBids from './landbids/components/deletenupdatebid';
 import LeaseListings from './lease/lease';
 import SalesListings from './listings/sale/sale';
 import UserNotifications from './notications/notifications';
+import LawyerProfileCreation from './profiles/components/LawyerProfileCreation';
+import SurveyorProfileCreation from './profiles/SurveyorProfileCreation';
+import BuyerProfileCreation from './profiles/components/BuyerProfileCreation';
+import SellerProfileCreation from './profiles/components/SellerProfileCreation';
+import SurveyorList from './surveyors/SurveyorsList';
+import LawyerList from './lawyers/LawyersList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -55,6 +61,12 @@ function App() {
         <Route path="/make-bid" element={<Parcels/>}/>
         <Route path="/sales" element={<SalesListings/>}/>
         <Route path="/lease" element={<LeaseListings/>}/>
+        <Route path="/buyer-profile" element={<BuyerProfileCreation/>}/>
+        <Route path="/seller-profile" element={<SellerProfileCreation/>}/>
+        <Route path="/lawyer-profile" element={<LawyerProfileCreation/>}/>
+        <Route path="/surveyor-profile" element={<SurveyorProfileCreation/>}/>
+        <Route path="/lawyer-list" element={<LawyerList/>}/>
+        <Route path="/surveyor-list" element={<SurveyorList/>}/>
         </Routes>
     </Router>
     

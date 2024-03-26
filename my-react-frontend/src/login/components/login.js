@@ -17,13 +17,53 @@ const Login = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
+  const getUserInfo = async (token) => {
+    try {
+      const response = await axios.get('http://localhost:8000/users/api/user-info/', {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user info:', error.response.data);
+      return null;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8000/dj-rest-auth/login/', credentials);
       localStorage.setItem('token', response.data.key); 
       console.log('Login Success:', response.data);
-      navigate("/listings");
+
+      const userInfo = await getUserInfo(response.data.key);
+      if (userInfo) {
+        if (!userInfo.is_profile_complete) {
+          switch (userInfo.user_type) {
+            case 'buyer':
+              navigate('/buyer-profile');
+              break;
+            case 'seller':
+              navigate('/seller-profile');
+              break;
+            case 'lawyer':
+              navigate('/lawyer-profile');
+              break;
+            case 'surveyor':
+              navigate('/surveyor-profile');
+              break;
+            default:
+              console.log('Unknown user type or profile already complete');
+              navigate('/listings'); // Default redirection
+          }
+        } else {
+          // If profile is complete, navigate to listings or home page
+          navigate('/listings');
+        }
+      }
+    
     } catch (error) {
       console.error('Login Error:', error.response.data);
     }
