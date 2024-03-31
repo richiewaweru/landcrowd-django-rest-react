@@ -28,7 +28,7 @@ Follow these instructions to get LandCrowd running on your local machine for dev
 1. **Clone the Project**
 
    ```sh
-   git clone https://github.com/yourgithubusername/landcrowd.git
+   git clone https://github.com/richiewaweru/landcrowd-django-rest-react
    cd landcrowd
    ```
 
@@ -62,12 +62,13 @@ python manage.py migrate
 
 Navigate to the frontend directory:
 
-'''sh
+```sh
 cd frontend
 npm install
 npm start
+```
 
-'''
+
 
 ## Usage
 Explore LandCrowd's features by registering as a user, lawyer, surveyor or lawyer to lexplore the platforms capabilities.
