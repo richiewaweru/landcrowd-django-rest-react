@@ -5,10 +5,18 @@ from listings.serializers import ParcelSerializer ,LandListingSerializer
 from users.serializers import CustomUserSerializer
 
 
+class BuyerSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    class Meta:
+        model = BuyerProfile
+        fields = '__all__'
+
+
 class BidSerializer(serializers.ModelSerializer):
     bidder = CustomUserSerializer(read_only=True)
     listing = LandListingSerializer(read_only=True)
     parcel = ParcelSerializer(read_only=True)
+    buyer_profile=BuyerSerializer(read_only=True)
    
     listing = LandListingSerializer(read_only=True)
 
@@ -16,8 +24,3 @@ class BidSerializer(serializers.ModelSerializer):
         model = Bid
         fields = '__all__'
 
-class BuyerSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
-    class Meta:
-        model = BuyerProfile
-        fields = '__all__'

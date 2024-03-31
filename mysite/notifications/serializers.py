@@ -7,4 +7,4 @@ class NotificationSerializer(serializers.ModelSerializer):
     recipient_username = serializers.CharField(source='recipient.username', read_only=True)
     class Meta:
         model = Notification
-        fields =fields = ('id', 'sender', 'recipient', 'sender_username', 'recipient_username', 'message', 'title', 'notification_type', 'created_at', 'bid', 'parcel', 'land_listing', 'is_read')
+        fields = ('id', 'sender', 'recipient', 'sender_username', 'recipient_username', 'message', 'title', 'notification_type', 'created_at', 'bid', 'parcel', 'land_listing', 'is_read')

@@ -14,6 +14,8 @@ class LawyerProfile(models.Model):
     email = models.EmailField(validators=[EmailValidator()], blank=True, null=True) 
     licenseNumber = models.CharField(max_length=255, unique=True)  
     address = models.TextField()
+    city = models.CharField(max_length=255,null=True,blank=True)
+    rates=models.FloatField(default=0)
 
     def __str__(self):
         return self.fullName

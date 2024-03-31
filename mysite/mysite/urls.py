@@ -37,6 +37,7 @@ urlpatterns = [
     path('', include('notifications.urls')),
     path('', include('lawyers.urls')),
     path('', include('surveyors.urls')),
+    path('', include('transactions.urls')),
     path('docs/', include_docs_urls(title='Landcrowd API')),
     path('schema/', schema_view), 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

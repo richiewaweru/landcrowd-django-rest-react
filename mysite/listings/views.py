@@ -1,6 +1,6 @@
-from rest_framework import generics, permissions
-from .models import LandListing, LandListingImages,LandListingMaps,Parcel,SellerProfile
-from .serializers import LandListingSerializer, LandListingImagesSerializer,LandListingMapsSerializer,ParcelSerializer,SellerSerializer
+from rest_framework import generics, permissions,viewsets
+from .models import LandListing, LandListingImages,LandListingMaps,Parcel,SellerProfile,SellerInquiry
+from .serializers import LandListingSerializer, LandListingImagesSerializer,LandListingMapsSerializer,ParcelSerializer,SellerSerializer,SellerInquirySerializer
 from rest_framework.generics import RetrieveUpdateDestroyAPIView,ListCreateAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .permissions import IsOwnerOrReadOnly 
@@ -10,6 +10,7 @@ from rest_framework.exceptions import PermissionDenied
 from notifications.models import Notification
 from landbids.models import Bid
 from django.contrib.auth import get_user_model
+from surveyors.models import SurveyorProfile
 
 
 class LandListingCreateAPIView(ListCreateAPIView):
@@ -18,7 +19,12 @@ class LandListingCreateAPIView(ListCreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
-        listing=serializer.save(seller=self.request.user)
+
+        seller_profile=get_object_or_404(SellerProfile,user=self.request.user)
+
+        print(f"Seller Profile Retrieved: {seller_profile}")  # Debug line to check seller profile
+
+        listing=serializer.save(seller=self.request.user, seller_profile=seller_profile)
         Notification.objects.create(
                     sender=self.request.user,
                     recipient=self.request.user,
@@ -233,4 +239,38 @@ class SellerProfileCreateList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+
+
+class SellerInquiryViewSet(viewsets.ModelViewSet):
+    serializer_class = SellerInquirySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if hasattr(user, 'surveyor_profile'):
+            return SellerInquiry.objects.filter(surveyor=user.surveyor_profile).order_by('-created_at')
+        return SellerInquiry.objects.none() 
+
+    def perform_create(self, serializer):
+        inquiry = serializer.save(seller=self.request.user)
+        if inquiry.status == 'pending':
+            message = f"Please help me check whether land with title deed {inquiry.title_deed_number} in {inquiry.location} is OK for subdivision."
+        Notification.objects.create(
+                sender=self.request.user,
+                recipient=inquiry.seller,  
+                message=message,
+            )
+        
+    def perform_update(self, serializer):
+        print("Performing update") 
     
+        inquiry = serializer.save()
+        # checks if the status was updated and is not 'pending' anymore
+        if inquiry.status != 'pending':
+            message = f"Land sub division request for land with title deed {inquiry.title_deed_number} in {inquiry.location} is now marked as {inquiry.status}."
+        Notification.objects.create(
+            sender=self.request.user,
+            recipient=inquiry.seller, 
+            message=message,
+        )
+

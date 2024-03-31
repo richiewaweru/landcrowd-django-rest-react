@@ -8,6 +8,7 @@ from listings.models import Parcel,LandListing
 class Notification(models.Model):
     # Types of notifications
     NOTIFICATION_TYPES = (
+        ('inquiry', 'Inquiry'),
         ('new_bid', 'New Bid'),
         ('bid_deleted', 'Bid Deleted'),
         ('parcel_deleted', 'Parcel Deleted'),
@@ -26,6 +27,7 @@ class Notification(models.Model):
     parcel = models.ForeignKey(Parcel, on_delete=models.SET_NULL, null=True, blank=True)
     land_listing = models.ForeignKey(LandListing, on_delete=models.SET_NULL, null=True, blank=True)
     is_read = models.BooleanField(default=False,null=True, blank=True)
+    
   
     def __str__(self):
         return f"Notification for {self.recipient.username}: {self.message}"

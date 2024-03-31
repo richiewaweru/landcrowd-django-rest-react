@@ -8,7 +8,6 @@ class NotificationListView(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        # Return notifications for the currently authenticated user
         user = self.request.user
         return Notification.objects.filter(Q(recipient=user) | Q(sender=user)).order_by('-created_at')
     

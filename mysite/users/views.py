@@ -8,7 +8,7 @@ from .serializers import CustomUserSerializer,UserInfoSerializer
 User = get_user_model()
 
 class UserCreate(APIView):
-    # Allow any user (authenticated or not) to access this URL path to create a new user
+    # allows any user (authenticated or not) to access this URL path to create a new user
     permission_classes = (AllowAny,)
 
     def post(self, request, format=None):
@@ -19,7 +19,6 @@ class UserCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserUpdate(APIView):
-    # Require user to be authenticated to update their details
     permission_classes = (IsAuthenticated,)
 
     def put(self, request, pk, format=None):
@@ -28,7 +27,6 @@ class UserUpdate(APIView):
         except User.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        # Check if the user is trying to update their own profile
         if request.user.pk != user.pk:
             return Response(status=status.HTTP_403_FORBIDDEN)
 
@@ -42,7 +40,7 @@ class LogoutAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        # Deleting the user's token to log them out
+        # deleting the user's token to log them out
         request.user.auth_token.delete()
         return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
     

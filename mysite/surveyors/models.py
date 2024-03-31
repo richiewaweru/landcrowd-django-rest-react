@@ -12,12 +12,15 @@ class SurveyorProfile(models.Model):
     email = models.EmailField(validators=[EmailValidator()], blank=True, null=True)
     certificationNumber = models.CharField(max_length=255, unique=True) 
     address = models.TextField()
+    city = models.CharField(max_length=255,null=True,blank=True)
+    rates=models.FloatField(default=0)
+
 
     def __str__(self):
         return self.fullName
     
     def is_complete(self):
-        required_fields = ['fullName', 'phoneNumber', 'address',' certificationNumber']
+        required_fields = ['fullName', 'phoneNumber', 'address','certificationNumber']
         for field_name in required_fields:
             value = getattr(self, field_name)
             if not value:
