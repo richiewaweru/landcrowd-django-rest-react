@@ -27,10 +27,15 @@ import BuyerProfileCreation from './profiles/components/BuyerProfileCreation';
 import SellerProfileCreation from './profiles/components/SellerProfileCreation';
 import SurveyorList from './surveyors/SurveyorsList';
 import LawyerList from './lawyers/LawyersList';
+import TransactionForm from './transaction/components/Transactions';
+import HelpDecisionComponent from './listings/components/LandingPage';
+import InquiryForm from './listings/components/SellerInquiry';
+import TransactionsPage from './transaction/ShowTransactions';
+import SurveyorInquiriesPage from './surveyors/InquiryResponse';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import Slider from 'react-slick';
+
 
 
 
@@ -67,6 +72,11 @@ function App() {
         <Route path="/surveyor-profile" element={<SurveyorProfileCreation/>}/>
         <Route path="/lawyer-list" element={<LawyerList/>}/>
         <Route path="/surveyor-list" element={<SurveyorList/>}/>
+        <Route path="/transaction" element={<TransactionForm/>}/>
+        <Route path="/help" element={<HelpDecisionComponent/>}/>
+        <Route path="/inquiry" element={<InquiryForm/>}/>
+        <Route path="/show-transactions" element={<TransactionsPage/>}/>
+        <Route path="/inquiry-response" element={<SurveyorInquiriesPage/>}/>
         </Routes>
     </Router>
     

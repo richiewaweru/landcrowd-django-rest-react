@@ -10,6 +10,8 @@ const LawyerProfileCreation = () => {
     email:'',
     licenseNumber: '',
     address: '',
+    city: '',
+    rates:'',
   });
   const token = localStorage.getItem('token');
   const navigate=useNavigate();
@@ -73,6 +75,14 @@ const LawyerProfileCreation = () => {
         <div className="mb-3">
           <label htmlFor="address" className="form-label">Address:</label>
           <input type="text" id="address" name="address" value={lawyerProfileData.address} onChange={handleChange} required className="form-control" />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="address" className="form-label">City:</label>
+          <input type="text" id="city" name="city" value={lawyerProfileData.city} onChange={handleChange} required className="form-control" />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="rates" className="form-label">Address:</label>
+          <input type="text" id="rates" name="rates" value={lawyerProfileData.rates} onChange={handleChange} required className="form-control" />
         </div>
         <button type="submit" className="btn btn-primary">Create Profile</button>
       </form>

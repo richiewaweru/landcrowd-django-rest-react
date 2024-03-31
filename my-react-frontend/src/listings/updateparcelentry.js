@@ -48,7 +48,7 @@ const ParcelUpdateComponent = () => {
     try {
       await axios.put(`http://127.0.0.1:8000/api/parcel/update/${parcelId}/`, parcelData, config);
       alert('Parcel updated successfully!');
-      navigate(-1); // Navigates back to the previous page; adjust as needed
+      navigate(-1); // Navigates back to the previous state.
     } catch (error) {
       console.error('Failed to update parcel:', error);
       alert('Failed to update parcel. Please try again.');

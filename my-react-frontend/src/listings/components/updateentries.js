@@ -45,10 +45,11 @@ const UpdateListing = () => {
       await axios.patch(`http://localhost:8000/api/landlistings/${id}/`, formData, {
         headers: { 'Authorization': `Token ${token}` },
       });
-      navigate('/lands'); // Adjust the redirect path as needed
-    } catch (error) {
-      console.error('Error updating listing:', error);
+      navigate('/lands'); 
+    }catch(error){
       alert('Only the user can edit this listing');
+      console.error('Error updating listing:', error);
+
     }
   };
 

@@ -8,7 +8,6 @@ const DeleteListing = () => {
   const [listing, setListing] = useState(null);
 
   useEffect(() => {
-    // Optionally fetch the listing details to display before deletion
     const fetchListing = async () => {
       const token = localStorage.getItem('token');
       try {
@@ -30,7 +29,7 @@ const DeleteListing = () => {
       await axios.delete(`http://localhost:8000/api/landlistings/${id}/`, {
         headers: { 'Authorization': `Token ${token}` },
       });
-      navigate('/lands'); // Redirect to listings overview or home page after deletion
+      navigate('/lands'); 
     } catch (error) {
       console.error('Error deleting listing:', error);
     }

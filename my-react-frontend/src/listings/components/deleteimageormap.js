@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const DeleteImageAndMapManagement = () => {
     const { landListingId } = useParams();
-    const navigate = useNavigate();
     const [images, setImages] = useState([]);
     const [maps, setMaps] = useState([]);
     const [selectedImageId, setSelectedImageId] = useState(null);

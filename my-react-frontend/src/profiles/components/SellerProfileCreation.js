@@ -60,14 +60,6 @@ const SellerProfileCreation = () => {
           <label htmlFor="phoneNumber" className="form-label">Phone Number:</label>
           <input type="text" id="phoneNumber" name="phoneNumber" className="form-control" value={sellerProfileData.phoneNumber} onChange={handleChange} required />
         </div>
-        <div className="mb-3">
-          <label htmlFor="landRegistrationNumber" className="form-label">Land Registration Number:</label>
-          <input type="text" id="landRegistrationNumber" name="landRegistrationNumber" className="form-control" value={sellerProfileData.landRegistrationNumber} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="landTitleDeedNumber" className="form-label">land Title Deed Number:</label>
-          <input type="text" id="landTitleDeedNumber" name="landTitleDeedNumber" className="form-control" value={sellerProfileData.landTitleDeedNumber} onChange={handleChange} required />
-        </div>
         <button type="submit" className="btn btn-primary">Create Profile</button>
       </form>
     </div>

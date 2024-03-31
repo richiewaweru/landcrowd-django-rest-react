@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+
 
 const LandEntries = () => {
   const [todos, setTodos] = useState([]);
@@ -24,10 +24,6 @@ const LandEntries = () => {
 
   const handleImageUpdate = (id) => {
     navigate(`/update-image-map/${id}`); 
-  };
-
-  const handleDeleteImage = (id) => {
-    navigate(`/delete-image/${id}`); 
   };
 
   const handleAddLandParcel = (id) => {

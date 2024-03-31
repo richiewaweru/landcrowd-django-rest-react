@@ -10,6 +10,8 @@ const SurveyorProfileCreation = () => {
     email:'',
     certificationNumber: '',
     address: '',
+    city: '',
+    rates:'',
   });
 
   const token = localStorage.getItem('token');
@@ -32,6 +34,8 @@ const SurveyorProfileCreation = () => {
     formData.append('email', surveyorProfileData.email);
     formData.append('certificationNumber', surveyorProfileData.certificationNumber);
     formData.append('address', surveyorProfileData.address);
+    formData.append('city', surveyorProfileData.city);
+    formData.append('rates', surveyorProfileData.rates);
     
     try {
       const response = await axios.post('http://localhost:8000/api/surveyor-profiles/', formData, {
@@ -43,7 +47,7 @@ const SurveyorProfileCreation = () => {
       navigate('/listings')
     } catch (error) {
       console.error('Surveyor Profile Creation Error:', error.response.data);
-      // handle error later
+      // i'll handle error later
     }
   };
 
@@ -75,6 +79,15 @@ const SurveyorProfileCreation = () => {
           <label htmlFor="address" className="form-label">Address:</label>
           <input type="text" id="address" name="address" value={surveyorProfileData.address} onChange={handleChange} required className="form-control" />
         </div>
+        <div className="mb-3">
+          <label htmlFor="city" className="form-label">City:</label>
+          <input type="text" id="city" name="city" value={surveyorProfileData.city} onChange={handleChange} required className="form-control" />
+        </div>
+        <div className="mb-3" >
+          <label htmlFor="rates" className="form-label">Rates:</label>
+          <input type="text" id="rates" name="rates" value={surveyorProfileData.rates} onChange={handleChange} required className="form-control" />
+        </div>
+      
         <button type="submit" className="btn btn-primary">Create Profile</button>
       </form>
     </div>

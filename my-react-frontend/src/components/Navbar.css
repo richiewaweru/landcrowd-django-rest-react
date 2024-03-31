@@ -1,0 +1,82 @@
+/* Base styles for the navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff; 
+    color: white;
+    padding: 10px;
+  }
+  
+  /* Style for the brand name or logo */
+  .navbar-brand {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px; /* Spacing between brand and nav links */
+    font-size: 1.5em; /* Larger text for brand/logo */
+  }
+  
+  /* Unordered list for nav items */
+  .navigation-links {
+    list-style: none; /* Removes bullet points */
+    display: flex; /* Aligns links in a row */
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Style for individual nav links */
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px; /* Vertical and horizontal padding */
+    margin-right: 10px; /* Spacing between links */
+  }
+  
+  /* Changes link color on hover */
+  .nav-link:hover, .dropdown-item:hover {
+    background-color: #0056b3; /* Lightens the link background on hover */
+  }
+  
+  /* Dropdown button styles */
+  .dropbtn {
+    background-color: #333; /* Same as navbar for consistency */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px; /* Consistent spacing with other links */
+  }
+  
+  /* Styles for the dropdown menu */
+  .dropdown {
+    position: relative;
+  }
+  
+  /* Initially hides the dropdown content */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #007bff; 
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Styles for dropdown items */
+  .dropdown-item {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    background-color: darkblue;
+  }
+  
+  /* Displays the dropdown content when hovering over the dropdown button */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Adjustments for smaller screens can be placed here using media queries */
+  
+  

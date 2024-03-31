@@ -14,7 +14,8 @@ const Logout = () => {
         },
       });
       localStorage.removeItem('token'); // remove the token from local storage for security
-      navigate('/login'); 
+      alert('Logged out successfully!'); // display a success message to the user
+      navigate('/sales'); // navigate to the home page after logging out 
     } catch (error) {
       console.error('Logout Error:', error);
     }

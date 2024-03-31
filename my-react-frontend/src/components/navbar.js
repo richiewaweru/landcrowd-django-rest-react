@@ -1,30 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import './Navbar.css';
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link className="navbar-brand" to="/listings">LandCrowd</Link>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
-          <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
-          <li className="nav-item"><Link className="nav-link" to="/logout">Logout</Link></li>
-          <li className="nav-item"><Link className="nav-link" to="/listings">Lands</Link></li>
-          <li className="nav-item"><Link className="nav-link" to="/sell">Sell</Link></li>
-          <li className="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
-          <li className="nav-item"><Link className="nav-link" to="/my-bids">My Bids</Link></li>
-          <li className="nav-item"><Link className="nav-link" to="/my-notifs">My Notifications</Link></li>
-          <li className="nav-item"><Link className="nav-link" to="/saleS">Buy Land</Link></li>
-          <li className="nav-item"><Link className="nav-link" to="/lease">Lease Land</Link></li>
-          <li className="nav-item"><Link className="nav-link" to="/lawyer-list">Lawyers</Link></li>
-          <li className="nav-item"><Link className="nav-link" to="/surveyor-list">Surveyors</Link></li>
-
-        </ul>
+    <nav className="navbar">
+      <Link className="navbar-brand" to="/">LandCrowd</Link>
+      <ul className="navigation-links">
+        <li><Link className="nav-link" to="/listings">Lands</Link></li>
+        <li><Link className="nav-link" to="/help">Sell</Link></li>
+        <li><Link className="nav-link" to="/sales">Buy Land</Link></li>
+        <li><Link className="nav-link" to="/lease">Lease Land</Link></li>
+        <li><Link className="nav-link" to="/lawyer-list">Lawyers</Link></li>
+        <li><Link className="nav-link" to="/surveyor-list">Surveyors</Link></li>
+      </ul>
+      <div className="dropdown">
+        <button className="dropbtn">User</button>
+        <div className="dropdown-content">
+          <Link className="dropdown-item" to="/signup">Sign Up</Link>
+          <Link className="dropdown-item" to="/login">Login</Link>
+          <Link className="dropdown-item" to="/logout">Logout</Link>
+          <Link className="dropdown-item" to="/profile">My Land Listings</Link>
+          <Link className="dropdown-item" to="/my-bids">My Bids</Link>
+          <Link className="dropdown-item" to="/my-notifs">My Notifications</Link>
+        </div>
       </div>
     </nav>
   );

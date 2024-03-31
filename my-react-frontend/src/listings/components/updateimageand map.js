@@ -61,7 +61,7 @@ const ImageAndMapManagement = () => {
             alert('Image updated successfully');
             navigate('/lands');
         } catch (error) {
-            console.error('Error updating image:', error.response || error);
+            console.error('Error updating image:', error);
             alert('Failed to update image');
         }
     };
@@ -87,7 +87,7 @@ const ImageAndMapManagement = () => {
             
             navigate('/lands'); 
         } catch (error) {
-            console.error('Error updating map:', error.response || error);
+            console.error('Error updating map:', error);
             alert('Failed to update map');
         }
     };

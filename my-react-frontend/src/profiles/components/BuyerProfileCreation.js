@@ -39,7 +39,7 @@ const BuyerProfileCreation = () => {
       navigate('/listings')
     } catch (error) {
       console.error('Buyer Profile Creation Error:', error.response.data);
-      // create handling error
+     
     }
   };
 

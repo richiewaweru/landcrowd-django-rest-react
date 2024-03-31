@@ -14,7 +14,7 @@ const ParcelsDetails = () => {
     },
   };
 
-  // encapsulate fetch logic into usestate fr refreshing after deletions
+  
   const fetchParcels = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/parcel/${landListingId}/`, config);
@@ -24,7 +24,6 @@ const ParcelsDetails = () => {
     }
   };
 
-  // Refreshing occurs here 
   useEffect(() => {
     fetchParcels();
   }, [landListingId]);
@@ -33,7 +32,7 @@ const ParcelsDetails = () => {
     try {
       await axios.delete(`http://127.0.0.1:8000/api/parcel/update/${parcelId}/`, config);
       alert('Parcel deleted successfully!');
-      fetchParcels(); // Refresh the list of parcels to reflect the deletion
+      fetchParcels(); 
     } catch (error) {
       console.error('Failed to delete parcel:', error);
       alert('Failed to delete parcel. Please try again.');

@@ -1,0 +1,29 @@
+.transaction-form {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .transaction-column {
+    width: 45%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow-y: auto;
+    max-height: 200px; /* Adjust height as needed */
+    padding: 10px;
+  }
+  
+  .transaction-column h3 {
+    text-align: center;
+  }
+  
+  .transaction-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0;
+  }
+  
+  .transaction-option label {
+    margin-right: 10px;
+  }
+  

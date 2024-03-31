@@ -10,7 +10,7 @@ const Parcels = () => {
   const [landMap, setLandMap] = useState(null);
   const [parcels, setParcels] = useState([]);
   const [selectedParcels, setSelectedParcels] = useState([]);
-  const [images, setImages] = useState([]); // Added state for images
+  const [images, setImages] = useState([]); 
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const config = {
@@ -63,15 +63,18 @@ const Parcels = () => {
   
     try {
       // Iterates over selected parcels and submit a bid for each
-      await Promise.all(selectedParcels.map(parcelId => {
+      const bidResponses= await Promise.all(selectedParcels.map(parcelId => {
         const bidData = JSON.stringify({ parcel: parcelId });
         
         return axios.post(`http://127.0.0.1:8000/api/listing/${landListingId}/bid/`, bidData, config);
       }));
-  
-      alert('Bids submitted successfully!');
-      setSelectedParcels([]); // reset selection after successful submission
-      navigate('/listings')
+
+      const bidIds = bidResponses.map(response => response.data.id);
+      const transactionData = JSON.stringify({ bid: bidIds ,})    
+      await axios.post('http://127.0.0.1:8000/api/transactions/', transactionData, config);
+      alert('Bids submitted and transactions created successfully!');
+      setSelectedParcels([]); 
+      navigate('/transaction', { state: { bid_ids: bidIds } });
     } catch (error) {
       console.error('Failed to submit bids:', error);
       alert('This parcel has been bidded Choose an available one.');
@@ -103,7 +106,6 @@ const Parcels = () => {
           </Slider>
         </div>
         <div className="col-md-6">
-          {/* Parcels listing and bid submission remains the same */}
           {parcels.map((parcel) => (
             <div key={parcel.id} className="card mb-3" onClick={() => toggleParcelSelection(parcel.id)} style={{ cursor: 'pointer', margin: '10px', padding: '10px', border: selectedParcels.includes(parcel.id) ? '2px solid #007bff' : '1px solid #ddd' }}>
               <div className="card-body">

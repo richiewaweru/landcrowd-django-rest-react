@@ -59,13 +59,24 @@ const Login = () => {
               navigate('/listings'); // Default redirection
           }
         } else {
-          // If profile is complete, navigate to listings or home page
-          navigate('/listings');
+          switch (userInfo.user_type) {
+            case 'lawyer':
+            case 'surveyor':
+              navigate('/show-transactions');
+              break;
+            case 'seller':
+            case 'buyer':
+              navigate('/listings'); // Default redirection for sellers and surveyors
+              break;
+            default:
+              navigate('/listings'); // Fallback redirection
+          }          
         }
       }
     
     } catch (error) {
       console.error('Login Error:', error.response.data);
+      alert('Invalid username or password');
     }
   };
 
@@ -78,8 +89,6 @@ const Login = () => {
         </div>
         {/* Login Form Container */}
         <div className="col-md-6">
-          <h3>Login</h3>
-         
           <form onSubmit={handleSubmit} className="d-flex flex-column align-items-start">
             <input
               type="text"

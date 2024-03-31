@@ -9,6 +9,7 @@ const LandListingForm = () => {
     size: '',
     telephone_number: '',
     installment_options: false,
+    landTitleDeedNumber: '',
     listing_type: 'for sale',
     description:'',
   });
@@ -118,6 +119,18 @@ const LandListingForm = () => {
               <input
                 type="text"
                 className="form-control"
+                name="landTitleDeedNumber"
+                value={formData.landTitleDeedNumber}
+                onChange={handleChange}
+                placeholder="land Title Deed Number"
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <input
+                type="text"
+                className="form-control"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
@@ -125,7 +138,6 @@ const LandListingForm = () => {
                 required
               />
             </div>
-
 
             <button type="submit" className="btn btn-primary">Create Listing</button>
           </form>
