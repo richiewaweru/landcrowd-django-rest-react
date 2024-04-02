@@ -74,8 +74,8 @@ class BidDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         transaction = get_object_or_404(Transaction, bid=serializer.instance)
         bid=serializer.save()
         parcel = bid.parcel
-        if transaction.status =='pending' or 'in_progress':
-            raise ValidationError( "This parcel  transaction is still being handled.")
+        if transaction.status in ['pending', 'in_progress']:
+            raise ValidationError("This parcel transaction is still being handled.")
         parcel.status = 'sold'
         parcel.save()
         Notification.objects.create(

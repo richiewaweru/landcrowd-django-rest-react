@@ -256,7 +256,6 @@ class SellerInquiryViewSet(viewsets.ModelViewSet):
         if inquiry.status == 'pending':
             message = f"Please help me check whether land with title deed {inquiry.title_deed_number} in {inquiry.location} is OK for subdivision."
         Notification.objects.create(
-                sender=self.request.user,
                 recipient=inquiry.seller,  
                 message=message,
             )
